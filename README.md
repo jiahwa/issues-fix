@@ -25,3 +25,14 @@ logs print:
 ```logs
 Deleted alias default - restore it with `nvm alias "default" "v14.19.0"` (Perhaps shows other default value here)
 ```
+
+Also, the above operation has side effects, which can be eliminated by using the command:
+
+```sh
+nvm list
+nvm use <any node version suits you>
+
+# OR
+
+nvm alias default stable # (Perhaps other default value)
+```
