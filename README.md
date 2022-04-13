@@ -36,3 +36,53 @@ nvm use <any node version suits you>
 
 nvm alias default stable # (Perhaps other default value)
 ```
+
+Issue.1
+--
+## TypeError: require.context is not a function.
+
+logs print:
+```logs
+const demos = require.context(path, false, regExp);
+                        ^
+
+TypeError: require.context is not a function
+```
+
+> Fixed below
+
+Solved it by `polyfill` for require.context. Thie helped me : https://gist.github.com/ezidio/f64c59d46b19a3fe671a9ded6441de18
+
+Code is like :
+
+```js
+const path = require("path");
+const fs = require("fs");
+require.context = (base = '.', scanSubDirectories = false, regularExpression = /\.js$/) => {
+        const files = {}
+    
+        function readDirectory (directory) {
+            fs.readdirSync(directory).forEach((file) => {
+            const fullPath = path.resolve(directory, file)
+    
+            if (fs.statSync(fullPath).isDirectory()) {
+              if (scanSubDirectories) readDirectory(fullPath)
+              return
+            }
+    
+            if (!regularExpression.test(fullPath)) return
+              files[\`./\${file}\`] = true
+            })
+        }
+    
+        readDirectory(path.resolve(__dirname, base))
+    
+        function Module (file) {
+            return require(path.resolve(__dirname, base, file))
+        }
+    
+        Module.keys = () => Object.keys(files)
+    
+        return Module
+        }
+```
