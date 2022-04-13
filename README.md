@@ -37,7 +37,7 @@ nvm use <any node version suits you>
 nvm alias default stable # (Perhaps other default value)
 ```
 
-Issue.1
+Issue.2
 --
 ## TypeError: require.context is not a function.
 
