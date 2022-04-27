@@ -89,7 +89,7 @@ require.context = (base = '.', scanSubDirectories = false, regularExpression = /
 
 Issue.3
 --
-# On Windows OS, `nvm This is not the package you are looking for: please go to http://nvm.sh`
+## On Windows OS, `nvm This is not the package you are looking for: please go to http://nvm.sh`
 
 logs print:
 ```logs
