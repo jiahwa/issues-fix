@@ -86,3 +86,32 @@ require.context = (base = '.', scanSubDirectories = false, regularExpression = /
         return Module
         }
 ```
+
+Issue.3
+--
+# On Windows OS, `nvm This is not the package you are looking for: please go to http://nvm.sh`
+
+logs print:
+```logs
+# run: nvm list
+nvm This is not the package you are looking for: please go to http://nvm.sh
+
+# run: yarn
+
+yarn : 无法加载文件 C:\Users\***\AppData\Roaming\npm\yarn.ps1，因为在此系
+息，请参阅 https:/go.microsoft.com/fwlink/?LinkID=135170 中的 about_Executi_Policies。
+```
+
+> Fixed below
+
+Solved it by running powershell use Administrator: set-ExecutionPolicy RemoteSigned
+
+Then running test
+```sh
+nvm list
+
+# OR
+yarn
+```
+
+ok!
